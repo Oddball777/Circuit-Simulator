@@ -5,9 +5,12 @@ from circuit_simulator.basic_circuit_elements import (
     AndGate,
     Light,
     NandGate,
+    NorGate,
     NotGate,
+    OrGate,
     Source,
     Wire,
+    XnorGate,
     XorGate,
 )
 
@@ -112,6 +115,38 @@ class TestAndGate(unittest.TestCase):
         self.assertFalse(and_gate.isOn)
 
 
+class TestOrGate(unittest.TestCase):
+    def test_init_all_on(self):
+        source1 = Source(active=True)
+        source2 = Source(active=True)
+        source3 = Source(active=True)
+        wire1 = Wire(source1)
+        wire2 = Wire(source2)
+        wire3 = Wire(source3)
+        or_gate = OrGate([wire1, wire2, wire3])
+        self.assertTrue(or_gate.isOn)
+
+    def test_init_one_off(self):
+        source1 = Source(active=False)
+        source2 = Source(active=True)
+        source3 = Source(active=True)
+        wire1 = Wire(source1)
+        wire2 = Wire(source2)
+        wire3 = Wire(source3)
+        or_gate = OrGate([wire1, wire2, wire3])
+        self.assertTrue(or_gate.isOn)
+
+    def test_init_all_off(self):
+        source1 = Source(active=False)
+        source2 = Source(active=False)
+        source3 = Source(active=False)
+        wire1 = Wire(source1)
+        wire2 = Wire(source2)
+        wire3 = Wire(source3)
+        or_gate = OrGate([wire1, wire2, wire3])
+        self.assertFalse(or_gate.isOn)
+
+
 class TestNotGate(unittest.TestCase):
     def test_init_on(self):
         source = Source(active=True)
@@ -198,3 +233,77 @@ class TestXorGate(unittest.TestCase):
         wire3 = Wire(source3)
         xor_gate = XorGate([wire1, wire2, wire3])
         self.assertTrue(xor_gate.isOn)
+
+
+class TestNorGate(unittest.TestCase):
+    def test_init_all_on(self):
+        source1 = Source(active=True)
+        source2 = Source(active=True)
+        source3 = Source(active=True)
+        wire1 = Wire(source1)
+        wire2 = Wire(source2)
+        wire3 = Wire(source3)
+        nor_gate = NorGate([wire1, wire2, wire3])
+        self.assertFalse(nor_gate.isOn)
+
+    def test_init_one_off(self):
+        source1 = Source(active=False)
+        source2 = Source(active=True)
+        source3 = Source(active=True)
+        wire1 = Wire(source1)
+        wire2 = Wire(source2)
+        wire3 = Wire(source3)
+        nor_gate = NorGate([wire1, wire2, wire3])
+        self.assertFalse(nor_gate.isOn)
+
+    def test_init_all_off(self):
+        source1 = Source(active=False)
+        source2 = Source(active=False)
+        source3 = Source(active=False)
+        wire1 = Wire(source1)
+        wire2 = Wire(source2)
+        wire3 = Wire(source3)
+        nor_gate = NorGate([wire1, wire2, wire3])
+        self.assertTrue(nor_gate.isOn)
+
+
+class TestXnorGate(unittest.TestCase):
+    def test_all_on(self):
+        source1 = Source(active=True)
+        source2 = Source(active=True)
+        source3 = Source(active=True)
+        wire1 = Wire(source1)
+        wire2 = Wire(source2)
+        wire3 = Wire(source3)
+        xnor_gate = XnorGate([wire1, wire2, wire3])
+        self.assertFalse(xnor_gate.isOn)
+
+    def test_all_off(self):
+        source1 = Source(active=False)
+        source2 = Source(active=False)
+        source3 = Source(active=False)
+        wire1 = Wire(source1)
+        wire2 = Wire(source2)
+        wire3 = Wire(source3)
+        xnor_gate = XnorGate([wire1, wire2, wire3])
+        self.assertTrue(xnor_gate.isOn)
+
+    def test_even_number_on(self):
+        source1 = Source(active=True)
+        source2 = Source(active=True)
+        source3 = Source(active=False)
+        wire1 = Wire(source1)
+        wire2 = Wire(source2)
+        wire3 = Wire(source3)
+        xnor_gate = XnorGate([wire1, wire2, wire3])
+        self.assertTrue(xnor_gate.isOn)
+
+    def test_odd_number_on(self):
+        source1 = Source(active=False)
+        source2 = Source(active=True)
+        source3 = Source(active=False)
+        wire1 = Wire(source1)
+        wire2 = Wire(source2)
+        wire3 = Wire(source3)
+        xnor_gate = XnorGate([wire1, wire2, wire3])
+        self.assertFalse(xnor_gate.isOn)

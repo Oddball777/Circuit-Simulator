@@ -10,6 +10,7 @@ class Wire:
 class Source:
     def __init__(self, outputs: list[Wire]) -> None:
         self.outputs = outputs
+        self.isOn = False
 
     def toggle(self):
         self.isOn = not self.isOn

@@ -6,17 +6,43 @@ from circuit_simulator.basic_circuit_elements import Light, Source, Wire
 class TestWire(unittest.TestCase):
     def test_init(self):
         wire = Wire()
-        self.assertFalse(wire)
+        self.assertFalse(wire.isOn)
 
 
 class TestSource(unittest.TestCase):
-    def set_up(self):
-        self.wire = Wire()
-        self.source = Source([self.wire])
-
     def test_init(self):
-        self.assertFalse(self.source.isOn)
+        wire = Wire()
+        source = Source([wire])
+        self.assertFalse(source.isOn)
 
     def test_toggle(self):
-        self.source.toggle()
-        self.assertTrue(self.wire.isOn)
+        wire = Wire()
+        source = Source([wire])
+        source.toggle()
+        self.assertTrue(wire.isOn)
+
+
+class TestLight(unittest.TestCase):
+    def test_init(self):
+        wire = Wire()
+        source = Source([wire])
+        light = Light([wire])
+        self.assertFalse(light.isOn)
+
+    def test_isOn_false(self):
+        wire1 = Wire()
+        wire2 = Wire()
+        source1 = Source([wire1])
+        source2 = Source([wire2])
+        light = Light([wire1, wire2])
+        self.assertFalse(light.isOn)
+
+    def test_isOn_true(self):
+        wire1 = Wire()
+        wire2 = Wire()
+        source1 = Source([wire1])
+        source2 = Source([wire2])
+        light = Light([wire1, wire2])
+        source1.toggle()
+        source2.toggle()
+        self.assertTrue(light.isOn)

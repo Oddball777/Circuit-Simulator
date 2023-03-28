@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "circuit-simulator"
+version = "0.1.0"
+description = ""
+authors = ["Gustave Coulombe <magikgus@gmail.com>"]
+readme = "README.md"
+packages = [{include = "circuit_simulator"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

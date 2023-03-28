@@ -1,6 +1,13 @@
 import unittest
 
-from circuit_simulator.basic_circuit_elements import AndGate, Light, Source, Wire
+from circuit_simulator.basic_circuit_elements import (
+    AndGate,
+    Light,
+    NandGate,
+    NotGate,
+    Source,
+    Wire,
+)
 
 
 class TestWire(unittest.TestCase):
@@ -101,3 +108,49 @@ class TestAndGate(unittest.TestCase):
         wire3 = Wire(source3)
         and_gate = AndGate([wire1, wire2, wire3])
         self.assertFalse(and_gate.isOn)
+
+
+class TestNotGate(unittest.TestCase):
+    def test_init_on(self):
+        source = Source(active=True)
+        wire = Wire(source)
+        not_gate = NotGate(wire)
+        self.assertFalse(not_gate.isOn)
+
+    def test_init_off(self):
+        source = Source(active=False)
+        wire = Wire(source)
+        not_gate = NotGate(wire)
+        self.assertTrue(not_gate.isOn)
+
+
+class TestNandGate(unittest.TestCase):
+    def test_init_all_on(self):
+        source1 = Source(active=True)
+        source2 = Source(active=True)
+        source3 = Source(active=True)
+        wire1 = Wire(source1)
+        wire2 = Wire(source2)
+        wire3 = Wire(source3)
+        nand_gate = NandGate([wire1, wire2, wire3])
+        self.assertFalse(nand_gate.isOn)
+
+    def test_init_all_off(self):
+        source1 = Source(active=False)
+        source2 = Source(active=False)
+        source3 = Source(active=False)
+        wire1 = Wire(source1)
+        wire2 = Wire(source2)
+        wire3 = Wire(source3)
+        nand_gate = NandGate([wire1, wire2, wire3])
+        self.assertTrue(nand_gate.isOn)
+
+    def test_init_part_on(self):
+        source1 = Source(active=True)
+        source2 = Source(active=False)
+        source3 = Source(active=False)
+        wire1 = Wire(source1)
+        wire2 = Wire(source2)
+        wire3 = Wire(source3)
+        nand_gate = NandGate([wire1, wire2, wire3])
+        self.assertTrue(nand_gate.isOn)

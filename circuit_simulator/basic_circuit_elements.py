@@ -65,9 +65,18 @@ class OrGate(Component):
 
 
 @dataclass
-class Not(Component):
-    input: list[Wire]
+class NotGate(Component):
+    input: Wire
 
     @property
     def isOn(self) -> bool:
-        return not self.input
+        return not self.input.isOn
+
+
+@dataclass
+class NandGate(Component):
+    inputs: list[Wire]
+
+    @property
+    def isOn(self) -> bool:
+        return not all([wire.isOn for wire in self.inputs])

@@ -21,6 +21,32 @@ class TestSource(unittest.TestCase):
         source.toggle()
         self.assertTrue(wire.isOn)
 
+    def test_toggle_on_if_off(self):
+        wire = Wire()
+        source = Source([wire])
+        source.toggle_on()
+        self.assertTrue(wire.isOn)
+
+    def test_toggle_on_if_on(self):
+        wire = Wire()
+        source = Source([wire])
+        source.toggle()
+        source.toggle_on()
+        self.assertTrue(wire.isOn)
+
+    def test_toggle_off_if_off(self):
+        wire = Wire()
+        source = Source([wire])
+        source.toggle_off()
+        self.assertFalse(wire.isOn)
+
+    def test_toggle_off_if_on(self):
+        wire = Wire()
+        source = Source([wire])
+        source.toggle()
+        source.toggle_off()
+        self.assertFalse(wire.isOn)
+
 
 class TestLight(unittest.TestCase):
     def test_init(self):

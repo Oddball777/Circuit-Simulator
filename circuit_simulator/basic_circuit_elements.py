@@ -17,6 +17,14 @@ class Source:
         for wire in self.outputs:
             wire.isOn = not wire.isOn
 
+    def toggle_on(self):
+        if not self.isOn:
+            self.toggle()
+
+    def toggle_off(self):
+        if self.isOn:
+            self.toggle()
+
 
 @dataclass
 class Light:

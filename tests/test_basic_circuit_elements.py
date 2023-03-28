@@ -1,4 +1,5 @@
 import unittest
+from re import X
 
 from circuit_simulator.basic_circuit_elements import (
     AndGate,
@@ -7,6 +8,7 @@ from circuit_simulator.basic_circuit_elements import (
     NotGate,
     Source,
     Wire,
+    XorGate,
 )
 
 
@@ -154,3 +156,45 @@ class TestNandGate(unittest.TestCase):
         wire3 = Wire(source3)
         nand_gate = NandGate([wire1, wire2, wire3])
         self.assertTrue(nand_gate.isOn)
+
+
+class TestXorGate(unittest.TestCase):
+    def test_all_on(self):
+        source1 = Source(active=True)
+        source2 = Source(active=True)
+        source3 = Source(active=True)
+        wire1 = Wire(source1)
+        wire2 = Wire(source2)
+        wire3 = Wire(source3)
+        xor_gate = XorGate([wire1, wire2, wire3])
+        self.assertTrue(xor_gate.isOn)
+
+    def test_all_off(self):
+        source1 = Source(active=False)
+        source2 = Source(active=False)
+        source3 = Source(active=False)
+        wire1 = Wire(source1)
+        wire2 = Wire(source2)
+        wire3 = Wire(source3)
+        xor_gate = XorGate([wire1, wire2, wire3])
+        self.assertFalse(xor_gate.isOn)
+
+    def test_even_number_on(self):
+        source1 = Source(active=True)
+        source2 = Source(active=True)
+        source3 = Source(active=False)
+        wire1 = Wire(source1)
+        wire2 = Wire(source2)
+        wire3 = Wire(source3)
+        xor_gate = XorGate([wire1, wire2, wire3])
+        self.assertFalse(xor_gate.isOn)
+
+    def test_odd_number_on(self):
+        source1 = Source(active=False)
+        source2 = Source(active=True)
+        source3 = Source(active=False)
+        wire1 = Wire(source1)
+        wire2 = Wire(source2)
+        wire3 = Wire(source3)
+        xor_gate = XorGate([wire1, wire2, wire3])
+        self.assertTrue(xor_gate.isOn)

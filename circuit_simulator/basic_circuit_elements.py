@@ -80,3 +80,12 @@ class NandGate(Component):
     @property
     def isOn(self) -> bool:
         return not all([wire.isOn for wire in self.inputs])
+
+
+@dataclass
+class XorGate(Component):
+    inputs: list[Wire]
+
+    @property
+    def isOn(self) -> bool:
+        return False if (sum([wire.isOn for wire in self.inputs]) % 2 == 0) else True

@@ -10,11 +10,11 @@ class Component(ABC):
 
 @dataclass
 class Wire:
-    inputs: list[Component]
+    input: Component
 
     @property
     def isOn(self):
-        return any([component.isOn for component in self.inputs])
+        return self.input.isOn
 
 
 @dataclass
@@ -39,11 +39,11 @@ class Source(Component):
 
 @dataclass
 class Light(Component):
-    inputs: list[Wire]
+    input: Wire
 
     @property
     def isOn(self) -> bool:
-        return any([wire.isOn for wire in self.inputs])
+        return self.input.isOn
 
 
 @dataclass
@@ -62,3 +62,12 @@ class OrGate(Component):
     @property
     def isOn(self) -> bool:
         return any([wire.isOn for wire in self.inputs])
+
+
+@dataclass
+class Not(Component):
+    input: list[Wire]
+
+    @property
+    def isOn(self) -> bool:
+        return not self.input

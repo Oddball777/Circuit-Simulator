@@ -9,7 +9,7 @@ class Component(ABC):
 
 
 @dataclass
-class Wire:
+class Wire(Component):
     input: Component
 
     @property

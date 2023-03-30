@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from itertools import product
+from typing import Optional
 
 import numpy as np
 import pandas as pd
@@ -10,11 +11,17 @@ from .basic_circuit_elements import Component, Light, Source
 @dataclass
 class Circuit:
     sources: list[Source]
-    other_components: list[Component]
     indictators: list[Light]
+    other_components: Optional[list[Component]]
 
     def __post_init__(self):
+        source_current_vals = [source.isOn for source in self.sources]
         self.make_truth_table()
+        for index, source in enumerate(self.sources):
+            if source_current_vals[index] == 0:
+                source.toggle_off()
+            if source_current_vals[index] == 1:
+                source.toggle_on()
 
     def make_truth_table(self):
         source_values = self.get_sources_values()

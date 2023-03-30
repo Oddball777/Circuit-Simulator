@@ -10,3 +10,4 @@ from .basic_circuit_elements import (
     XnorGate,
     XorGate,
 )
+from .circuit import Circuit

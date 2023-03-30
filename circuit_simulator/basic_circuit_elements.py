@@ -39,7 +39,7 @@ class Source(Component):
 
 @dataclass
 class Light(Component):
-    input: Wire
+    input: Wire | Component
 
     @property
     def isOn(self) -> bool:
@@ -48,7 +48,7 @@ class Light(Component):
 
 @dataclass
 class AndGate(Component):
-    inputs: list[Wire]
+    inputs: list[Wire | Component]
 
     @property
     def isOn(self) -> bool:
@@ -57,7 +57,7 @@ class AndGate(Component):
 
 @dataclass
 class OrGate(Component):
-    inputs: list[Wire]
+    inputs: list[Wire | Component]
 
     @property
     def isOn(self) -> bool:
@@ -66,7 +66,7 @@ class OrGate(Component):
 
 @dataclass
 class NotGate(Component):
-    input: Wire
+    input: Wire | Component
 
     @property
     def isOn(self) -> bool:
@@ -75,7 +75,7 @@ class NotGate(Component):
 
 @dataclass
 class NandGate(Component):
-    inputs: list[Wire]
+    inputs: list[Wire | Component]
 
     @property
     def isOn(self) -> bool:
@@ -84,7 +84,7 @@ class NandGate(Component):
 
 @dataclass
 class NorGate(Component):
-    inputs: list[Wire]
+    inputs: list[Wire | Component]
 
     @property
     def isOn(self) -> bool:
@@ -93,7 +93,7 @@ class NorGate(Component):
 
 @dataclass
 class XorGate(Component):
-    inputs: list[Wire]
+    inputs: list[Wire | Component]
 
     @property
     def isOn(self) -> bool:
@@ -102,7 +102,7 @@ class XorGate(Component):
 
 @dataclass
 class XnorGate(Component):
-    inputs: list[Wire]
+    inputs: list[Wire | Component]
 
     @property
     def isOn(self) -> bool:

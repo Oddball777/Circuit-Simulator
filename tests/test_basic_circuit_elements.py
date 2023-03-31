@@ -1,5 +1,4 @@
 import unittest
-from re import X
 
 from circuit_simulator.basic_circuit_elements import (
     AndGate,

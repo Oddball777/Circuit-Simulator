@@ -12,7 +12,7 @@ from .basic_circuit_elements import Component, Light, Source
 class Circuit:
     sources: list[Source]
     indictators: list[Light]
-    other_components: Optional[list[Component]]
+    other_components: Optional[list[Component]] = None
 
     def __post_init__(self) -> None:
         source_current_vals = [source.isOn for source in self.sources]

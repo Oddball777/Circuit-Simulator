@@ -4,7 +4,7 @@ from dataclasses import dataclass
 
 class Component(ABC):
     @property
-    def isOn(self):
+    def isOn(self) -> bool:
         raise NotImplementedError
 
 
@@ -13,7 +13,7 @@ class Wire(Component):
     input: Component
 
     @property
-    def isOn(self):
+    def isOn(self) -> bool:
         return self.input.isOn
 
 
@@ -22,17 +22,17 @@ class Source(Component):
     active: bool = False
 
     @property
-    def isOn(self):
+    def isOn(self) -> bool:
         return self.active
 
-    def toggle(self):
+    def toggle(self) -> None:
         self.active = not self.active
 
-    def toggle_on(self):
+    def toggle_on(self) -> None:
         if not self.active:
             self.toggle()
 
-    def toggle_off(self):
+    def toggle_off(self) -> None:
         if self.active:
             self.toggle()
 
